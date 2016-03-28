@@ -1,7 +1,7 @@
 #include "AppClass.h"
 void AppClass::InitWindow(String a_sWindowName)
 {
-	super::InitWindow("SLERP - YOUR USER NAME GOES HERE"); // Window Name
+	super::InitWindow("SLERP - Karen Navarro"); // Window Name
 
 	//Setting the color to black
 	m_v4ClearColor = vector4(0.0f);
@@ -42,7 +42,10 @@ void AppClass::Update(void)
 	static double fRunTime = 0.0f;
 	fRunTime += fCallTime;
 
-	static int nIndex = 0;
+	
+
+	//nEarthRevolutions
+	
 
 	//Earth Orbit
 	double fEarthHalfOrbTime = 182.5f * m_fDay; //Earths orbit around the sun lasts 365 days / half the time for 2 stops
@@ -76,9 +79,33 @@ void AppClass::Update(void)
 	//lerping
 	float fPercent = MapValue(static_cast<float>(fRunTime), 0.0f, m_fDay, 0.0f, 1.0f);
 
+	//EARTH ROTATION fEarthHalfOrbTime
+	glm::quat EarthRotQuat;
+	glm::quat earthQuaternionRotEnd = glm::quat(vector3(0.0f, fEarthHalfOrbTime, 0.0f));
+	glm::quat earthQuaternionRotStart = glm::quat(vector3(0.0f, 0.0f, 0.0f));
+	EarthRotQuat = glm::mix(earthQuaternionRotStart, earthQuaternionRotEnd, fPercent);
+	matrix4 RotEarth= glm::mat4_cast(EarthRotQuat);
+	
+	//EARTH ORBIT fEarthHalfRevTime
+	/*glm::quat EarthOrbQuat;
+	glm::quat earthQuaternionOrbEnd = glm::quat(vector3(0.0f, fEarthHalfRevTime, 0.0f));
+	glm::quat earthQuaternionOrbStart = glm::quat(vector3(0.0f, 0.0f, 0.0f));
+	EarthOrbQuat = glm::mix(earthQuaternionOrbStart, earthQuaternionOrbEnd, fPercent);
+	matrix4 OrbEarth = glm::mat4_cast(EarthOrbQuat);
+	*/
+	//MOON ORBIT fMoonHalfOrbTime
+	glm::quat MoonQuat;
+	glm::quat moonQuaternionStart = glm::quat(vector3(0.0f, fMoonHalfOrbTime, 0.0f));
+	glm::quat moonQuaternionEnd = glm::quat(vector3(0.0f, 0.0f, 0.0f));
+	MoonQuat = glm::mix(moonQuaternionStart, moonQuaternionEnd, fPercent);
+	matrix4 moonQ = glm::mat4_cast(MoonQuat);
+	
+	//MATRIX work pt2
+	m_m4Earth = m_m4Earth * RotEarth ;
+	m_m4Moon = m_m4Moon * moonQ;
 	/*
 	glm::quat myQuaternion= glm::quat(vector3(0.0f,0.0f,0.0f));
-	glm::mix(qfQuaternion, qSecondQuaternion, fPercentage);
+	glm::mix(qfQuaternion, qSecondQuaternion, fPercentage / 365);
 	glm::mat4_cast(myQuaternion);
 	firstQuaternion and secondQuaternion are representative
 	of the start and end points of the "orbit", 
@@ -95,6 +122,29 @@ void AppClass::Update(void)
 	static int nEarthOrbits = 0;
 	static int nEarthRevolutions = 0;
 	static int nMoonOrbits = 0;
+
+	static int nIndexMoon = 0; //resetting Earth Rotations
+
+	static int nIndexYear = 0;
+
+	if (fRunTime > m_fDay)
+	{
+		fRunTime = 0.0f;
+		nEarthRevolutions++;
+		nIndexMoon++;
+		nIndexYear++;
+	}
+
+	if (nIndexMoon == 28)
+	{
+		nIndexMoon = 0.0f;
+		nMoonOrbits++;
+	}
+	if (nIndexYear == 365.0)
+	{
+		nIndexYear = 0.0f;
+		nEarthOrbits++;
+	}
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
