@@ -42,15 +42,52 @@ void AppClass::Update(void)
 	static double fRunTime = 0.0f;
 	fRunTime += fCallTime;
 
+	static int nIndex = 0;
+
 	//Earth Orbit
 	double fEarthHalfOrbTime = 182.5f * m_fDay; //Earths orbit around the sun lasts 365 days / half the time for 2 stops
 	float fEarthHalfRevTime = 0.5f * m_fDay; // Move for Half a day
 	float fMoonHalfOrbTime = 14.0f * m_fDay; //Moon's orbit is 28 earth days, so half the time for half a route
 
+	//TRANSLATE for Earth and Moon
+	matrix4 distanceEarth = glm::translate(11.0f, .0f, .0f);
+	matrix4 distanceMoon = glm::translate(2.0f, 0.0f, 0.0f);
+	
+	//SCALE for all models
+	matrix4 m4SunScale = glm::scale(vector3(5.936f, 5.936f, 5.936f));
+	matrix4 m4EarthScale = glm::scale(vector3(.524f, .524f, .524f));
+	matrix4 m4MoonScale = glm::scale(vector3(.27f, 0.27f, 0.27f));
+	//0.14148
+	//MATRIX SETUP
+	matrix4 m_m4Sun = IDENTITY_M4;
+	matrix4 m_m4Earth = IDENTITY_M4;
+	matrix4 m_m4Moon = IDENTITY_M4;
+
+	//MATRIX WORK pt1
+	m_m4Sun = m4SunScale;
+	m_m4Earth = distanceEarth  * m4EarthScale;
+	m_m4Moon = m_m4Earth * distanceMoon * m4MoonScale;
+	
+	//Quat setup
+	glm::quat q_Sun = glm::quat(m_m4Sun);
+	glm::quat q_Earth = glm::quat(m_m4Earth);
+	glm::quat q_Moon = glm::quat(m_m4Moon);
+
+	//lerping
+	float fPercent = MapValue(static_cast<float>(fRunTime), 0.0f, m_fDay, 0.0f, 1.0f);
+
+	/*
+	glm::quat myQuaternion= glm::quat(vector3(0.0f,0.0f,0.0f));
+	glm::mix(qfQuaternion, qSecondQuaternion, fPercentage);
+	glm::mat4_cast(myQuaternion);
+	firstQuaternion and secondQuaternion are representative
+	of the start and end points of the "orbit", 
+	fPercentage says where it is in that orbit
+	*/
 	//Setting the matrices
-	m_pMeshMngr->SetModelMatrix(IDENTITY_M4, "Sun");
-	m_pMeshMngr->SetModelMatrix(IDENTITY_M4, "Earth");
-	m_pMeshMngr->SetModelMatrix(IDENTITY_M4, "Moon");
+	m_pMeshMngr->SetModelMatrix(m_m4Sun, "Sun");
+	m_pMeshMngr->SetModelMatrix(m_m4Earth, "Earth");
+	m_pMeshMngr->SetModelMatrix(m_m4Moon, "Moon");
 
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
