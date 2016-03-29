@@ -1,7 +1,7 @@
 #include "AppClass.h"
 void AppClass::InitWindow(String a_sWindowName)
 {
-	super::InitWindow("Bobadilla, Alberto - Gimbal Lock");
+	super::InitWindow("Navarro, Karen - Gimbal Lock");
 	m_v4ClearColor = vector4(0.0f, 0.0f, 0.0f, 0.0f);
 }
 void AppClass::InitVariables(void)
@@ -66,4 +66,27 @@ void AppClass::Display(void)
 void AppClass::Release(void)
 {
 	super::Release();
+}
+
+void AppClass::ProcessKeyboard(void)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	{
+		m_v3Orientation = vector3(0.0f);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	{
+		if (!bModifier) m_v3Orientation.x += 1.0f;
+		else m_v3Orientation.x -= 1.0f;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
+	{
+		if (!bModifier) m_v3Orientation.y += 1.0f;
+		else m_v3Orientation.y -= 1.0f;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	{
+		if (!bModifier) m_v3Orientation.z += 1.0f;
+		else m_v3Orientation.z -= 1.0f;
+	}
 }
