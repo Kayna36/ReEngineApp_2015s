@@ -22,6 +22,8 @@ void AppClass::InitVariables(void)
 
 	//Setting the days duration
 	m_fDay = 1.0f;
+
+	
 }
 
 void AppClass::Update(void)
@@ -40,12 +42,9 @@ void AppClass::Update(void)
 	double fCallTime = m_pSystem->LapClock();
 	//Counting the cumulative time
 	static double fRunTime = 0.0f;
+	static double fRunning = 0.0f;
 	fRunTime += fCallTime;
-
-	
-
-	//nEarthRevolutions
-	
+	fRunning += fCallTime;
 
 	//Earth Orbit
 	double fEarthHalfOrbTime = 182.5f * m_fDay; //Earths orbit around the sun lasts 365 days / half the time for 2 stops
@@ -61,48 +60,41 @@ void AppClass::Update(void)
 	matrix4 m4EarthScale = glm::scale(vector3(.524f, .524f, .524f));
 	matrix4 m4MoonScale = glm::scale(vector3(.27f, 0.27f, 0.27f));
 	//0.14148
-	//MATRIX SETUP
-	matrix4 m_m4Sun = IDENTITY_M4;
-	matrix4 m_m4Earth = IDENTITY_M4;
-	matrix4 m_m4Moon = IDENTITY_M4;
+	
 
 	//MATRIX WORK pt1
 	m_m4Sun = m4SunScale;
-	m_m4Earth = distanceEarth  * m4EarthScale;
-	m_m4Moon = m_m4Earth * distanceMoon * m4MoonScale;
-	
-	//Quat setup
-	glm::quat q_Sun = glm::quat(m_m4Sun);
-	glm::quat q_Earth = glm::quat(m_m4Earth);
-	glm::quat q_Moon = glm::quat(m_m4Moon);
 
 	//lerping
 	float fPercent = MapValue(static_cast<float>(fRunTime), 0.0f, m_fDay, 0.0f, 1.0f);
+	float fPercentYear = MapValue(static_cast<float>(fRunTime), 0.0f, 365.0f, 0.0f, 1.0f);
 
-	//EARTH ROTATION fEarthHalfOrbTime
+	//EARTH Orbit fEarthHalfOrbTime
 	glm::quat EarthRotQuat;
-	glm::quat earthQuaternionRotEnd = glm::quat(vector3(0.0f, fEarthHalfOrbTime, 0.0f));
-	glm::quat earthQuaternionRotStart = glm::quat(vector3(0.0f, 0.0f, 0.0f));
-	EarthRotQuat = glm::mix(earthQuaternionRotStart, earthQuaternionRotEnd, fPercent);
+	glm::quat earthQuaternionRotStart = glm::quat(vector3(0.0f, 180.0f, 0.0f));
+	glm::quat earthQuaternionRotEnd = glm::quat(vector3(0.0f, 0.0f, 0.0f));
+	EarthRotQuat = glm::mix(earthQuaternionRotEnd, earthQuaternionRotStart, fPercentYear);
 	matrix4 RotEarth= glm::mat4_cast(EarthRotQuat);
+	m_m4Earth = RotEarth * distanceEarth * m4EarthScale;
 	
-	//EARTH ORBIT fEarthHalfRevTime
-	/*glm::quat EarthOrbQuat;
-	glm::quat earthQuaternionOrbEnd = glm::quat(vector3(0.0f, fEarthHalfRevTime, 0.0f));
-	glm::quat earthQuaternionOrbStart = glm::quat(vector3(0.0f, 0.0f, 0.0f));
+	//EARTH Rotation fEarthHalfRevTime
+	glm::quat EarthOrbQuat;
+	glm::quat earthQuaternionOrbStart = glm::quat(vector3(0.0f, 180.0f, 0.0f));
+	glm::quat earthQuaternionOrbEnd = glm::quat(vector3(0.0f, 0.0f, 0.0f));
 	EarthOrbQuat = glm::mix(earthQuaternionOrbStart, earthQuaternionOrbEnd, fPercent);
 	matrix4 OrbEarth = glm::mat4_cast(EarthOrbQuat);
-	*/
+	
 	//MOON ORBIT fMoonHalfOrbTime
 	glm::quat MoonQuat;
-	glm::quat moonQuaternionStart = glm::quat(vector3(0.0f, fMoonHalfOrbTime, 0.0f));
+	glm::quat moonQuaternionStart = glm::quat(vector3(0.0f, 180.0, 0.0f));
 	glm::quat moonQuaternionEnd = glm::quat(vector3(0.0f, 0.0f, 0.0f));
-	MoonQuat = glm::mix(moonQuaternionStart, moonQuaternionEnd, fPercent);
+	MoonQuat = glm::mix(moonQuaternionStart, moonQuaternionEnd, fPercent/16.0f);
 	matrix4 moonQ = glm::mat4_cast(MoonQuat);
 	
 	//MATRIX work pt2
-	m_m4Earth = m_m4Earth * RotEarth ;
-	m_m4Moon = m_m4Moon * moonQ;
+	//m_m4Earth = m_m4Earth * RotEarth * OrbEarth;
+	m_m4Moon = m_m4Earth * moonQ *  distanceMoon * m4MoonScale;
+	m_m4Earth *=  OrbEarth ;
 	/*
 	glm::quat myQuaternion= glm::quat(vector3(0.0f,0.0f,0.0f));
 	glm::mix(qfQuaternion, qSecondQuaternion, fPercentage / 365);
@@ -111,6 +103,7 @@ void AppClass::Update(void)
 	of the start and end points of the "orbit", 
 	fPercentage says where it is in that orbit
 	*/
+
 	//Setting the matrices
 	m_pMeshMngr->SetModelMatrix(m_m4Sun, "Sun");
 	m_pMeshMngr->SetModelMatrix(m_m4Earth, "Earth");
@@ -127,9 +120,9 @@ void AppClass::Update(void)
 
 	static int nIndexYear = 0;
 
-	if (fRunTime > m_fDay)
+	if (fRunning > m_fDay)
 	{
-		fRunTime = 0.0f;
+		fRunning = 0.0f;
 		nEarthRevolutions++;
 		nIndexMoon++;
 		nIndexYear++;
