@@ -71,7 +71,7 @@ public:
 	ARGUMENTS: ---
 	OUTPUT: vector3 -> Center's of the sphere in world coordinates
 	*/
-	vector3 GetCenter(void);
+	vector3 GetCenterG(void);
 
 	/*
 	 GetRadius
@@ -90,6 +90,7 @@ public:
 	*/
 	bool IsColliding(MyBoundingSphereClass* const a_pOther);
 
+<<<<<<< HEAD
 	/*
 	 UpdatePosition
 	 USAGE: will update the position of this bounding sphere in global space
@@ -98,6 +99,9 @@ public:
 	OUTPUT: ---
 	*/
 	void UpdatePosition(vector3 v3Input);
+=======
+	matrix4 GetModelMatrix(void);
+>>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
 	
 private:
 	/*

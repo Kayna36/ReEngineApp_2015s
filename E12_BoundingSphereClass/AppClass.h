@@ -13,9 +13,13 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
+	MyBoundingSphereClass* m_pSphere1 = nullptr;
+	MyBoundingSphereClass* m_pSphere2 = nullptr;
+
 	vector3 m_v3O1 = vector3(-2.5f, 0.0f, 0.0f);
 	vector3 m_v3O2 = vector3( 2.5f, 0.0f, 0.0f);
 
+<<<<<<< HEAD
 	/*PrimitiveClass* m_pSphere1 = nullptr;
 	vector3 m_v3Center1;
 	float m_fRadius1 = 0.0f;
@@ -32,6 +36,8 @@ class AppClass : public ReEngAppClass
 	MyBoundingSphereClass* steveBoundSphere = nullptr;
 	MyBoundingSphereClass* creeperBoundSphere = nullptr;
 
+=======
+>>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
 public:
 	typedef ReEngAppClass super;
 	/*

@@ -19,6 +19,7 @@ void AppClass::InitVariables(void)
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper");
 
+<<<<<<< HEAD
 	//std::vector<vector3> vertexList = m_pMeshMngr->GetVertexList("Steve");
 	steveBoundSphere= new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Steve"));
 
@@ -92,6 +93,10 @@ void AppClass::InitVariables(void)
 
 	m_pSphere2 = new PrimitiveClass();
 	m_pSphere2->GenerateSphere(m_fRadius2, 10, REGREEN);*/
+=======
+	m_pSphere1 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Steve"));
+	m_pSphere2 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Creeper"));
+>>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
 }
 
 void AppClass::Update(void)
@@ -115,6 +120,28 @@ void AppClass::Update(void)
 	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O1) * ToMatrix4(m_qArcBall), "Steve");
 	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O2), "Creeper");
 
+	m_pSphere1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
+	m_pSphere2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Creeper"));
+
+	bool isColliding = m_pSphere1->IsColliding(m_pSphere2);
+
+	if (isColliding)
+	{
+		m_pMeshMngr->AddSphereToQueue(
+			glm::translate(vector3(m_pSphere1->GetCenterG())) *
+			glm::scale(vector3(m_pSphere1->GetRadius()) * 2.0f), RERED, WIRE);
+		m_pMeshMngr->AddSphereToQueue(glm::translate(vector3(m_pSphere2->GetCenterG()))  *
+			glm::scale(vector3(m_pSphere2->GetRadius()) * 2.0f), RERED, WIRE);
+	}
+	else
+	{
+		m_pMeshMngr->AddSphereToQueue(
+			glm::translate(vector3(m_pSphere1->GetCenterG())) *
+			glm::scale(vector3(m_pSphere1->GetRadius()) * 2.0f), REGREEN, WIRE);
+		m_pMeshMngr->AddSphereToQueue(glm::translate(vector3(m_pSphere2->GetCenterG()))  *
+			glm::scale(vector3(m_pSphere2->GetRadius()) * 2.0f), REGREEN, WIRE);
+	}
+	
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
@@ -137,6 +164,7 @@ void AppClass::Update(void)
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
+<<<<<<< HEAD
 	/*
 	bool bAreColliding = false;
 
@@ -159,14 +187,21 @@ void AppClass::Update(void)
 	m_pMeshMngr->PrintLine("");
 	*/
 
+=======
+	
+>>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
 	//print info into the console
 	printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
+<<<<<<< HEAD
 	/*if (bAreColliding)
 		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
 	else
 		m_pMeshMngr->PrintLine("They are not colliding! =)", REGREEN);*/
+=======
+
+>>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
 }
@@ -193,6 +228,7 @@ void AppClass::Display(void)
 		break;
 	}
 	
+<<<<<<< HEAD
 	matrix4 m4Projection = m_pCameraMngr->GetProjectionMatrix();
 	matrix4 m4View = m_pCameraMngr->GetViewMatrix();
 
@@ -210,6 +246,8 @@ void AppClass::Display(void)
 	//m_pSphere2->Render(m4Projection, m4View, m4Model);
 	m_pMeshMngr->AddSphereToQueue(m4Model, RERED, WIRE);*/
 
+=======
+>>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
 	m_pMeshMngr->Render(); //renders the render list
 
 	m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
