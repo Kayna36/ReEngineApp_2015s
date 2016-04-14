@@ -89,6 +89,15 @@ public:
 	OUTPUT: bool -> check of the collision
 	*/
 	bool IsColliding(MyBoundingSphereClass* const a_pOther);
+
+	/*
+	 UpdatePosition
+	 USAGE: will update the position of this bounding sphere in global space
+	 ARGUMENTS:
+		v3Input to update the position and translate in the world matrix
+	OUTPUT: ---
+	*/
+	void UpdatePosition(vector3 v3Input);
 	
 private:
 	/*
