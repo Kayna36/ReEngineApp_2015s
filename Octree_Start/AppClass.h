@@ -1,27 +1,25 @@
 /*----------------------------------------------
 Programmer: Alberto Bobadilla (labigm@gmail.com)
-Date: 2015/09
+Date: 2015/09 (Last Modified on: 15/11)
 ----------------------------------------------*/
 #ifndef __APPLICATION_H_
 #define __APPLICATION_H_
 
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
+#include "MyOctant.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
-	float fDuration = 1.0f; //Time Duration of the stops
-	std::vector<vector3> locationVector;
-	PrimitiveClass* m_pSphere = nullptr;
-	matrix4* m_pMatrix = nullptr;
-	int locVectorSize = 0;
+	MyOctant* m_pOctreeHead = nullptr;
 public:
 	typedef ReEngAppClass super;
+
 	/*
 	USAGE: Constructor
-	ARGUMENTS:
+	ARGUMENTS: 
 	- HINSTANCE hInstance -> Instance of the window
 	- LPWSTR lpCmdLine -> Command line
 	- int nCmdShow -> Number or arguments
@@ -92,5 +90,9 @@ public:
 	*/
 	virtual void Release(void) final;
 };
-
+/*
+USAGE:
+ARGUMENTS: ---
+OUTPUT: ---
+*/
 #endif //__APPLICATION_H_
