@@ -25,34 +25,6 @@ void MyBoundingSphereClass::Release(void)
 //The big 3
 MyBoundingSphereClass::MyBoundingSphereClass(std::vector<vector3> a_lVectorList)
 {
-	uint nVertexCount = a_lVectorList.size();
-
-	if (nVertexCount > 0)
-	{
-		m_v3Min = a_lVectorList[0];
-		m_v3Max = a_lVectorList[0];
-	}
-
-	for (uint i = 0; i < nVertexCount; i++)
-	{
-		if (a_lVectorList[i].x > m_v3Max.x)
-			m_v3Max.x = a_lVectorList[i].x;
-		else if (a_lVectorList[i].x < m_v3Min.x)
-			m_v3Min.x = a_lVectorList[i].x;
-
-		if (a_lVectorList[i].y > m_v3Max.y)
-			m_v3Max.y = a_lVectorList[i].y;
-		else if (a_lVectorList[i].y < m_v3Min.y)
-			m_v3Min.y = a_lVectorList[i].y;
-
-		if (a_lVectorList[i].z > m_v3Max.z)
-			m_v3Max.z = a_lVectorList[i].z;
-		else if (a_lVectorList[i].z < m_v3Min.z)
-			m_v3Min.z = a_lVectorList[i].z;
-	}
-
-	m_v3Center = (m_v3Max + m_v3Min) / 2.0f;
-	m_fRadius = glm::distance(m_v3Center, m_v3Max);
 }
 
 MyBoundingSphereClass::MyBoundingSphereClass(MyBoundingSphereClass const& other)
@@ -86,12 +58,17 @@ void MyBoundingSphereClass::SetModelMatrix(matrix4 a_m4ToWorld)
 vector3 MyBoundingSphereClass::GetCenter(void){ return vector3(m_m4ToWorld * vector4(m_v3Center, 1.0f)); }
 =======
 void MyBoundingSphereClass::SetModelMatrix(matrix4 a_m4ToWorld){ m_m4ToWorld = a_m4ToWorld; }
+<<<<<<< HEAD
 vector3 MyBoundingSphereClass::GetCenterG(void){ return vector3(m_m4ToWorld * vector4(m_v3Center, 1.0f)); }
 >>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
+=======
+vector3 MyBoundingSphereClass::GetCenter(void){ return vector3(m_m4ToWorld * vector4(m_v3Center, 1.0f)); }
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581
 float MyBoundingSphereClass::GetRadius(void) { return m_fRadius; }
 //--- Non Standard Singleton Methods
 bool MyBoundingSphereClass::IsColliding(MyBoundingSphereClass* const a_pOther)
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if (glm::distance(GetCenter(), a_pOther->GetCenter()) < (GetRadius() + a_pOther->GetRadius()))
 	{
@@ -131,3 +108,7 @@ void MyBoundingSphereClass::UpdatePosition(vector3 v3Input)
 }
 matrix4 MyBoundingSphereClass::GetModelMatrix(void) { return m_m4ToWorld; }
 >>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
+=======
+	return false;
+}
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581

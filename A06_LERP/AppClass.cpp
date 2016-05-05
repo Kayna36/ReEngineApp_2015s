@@ -121,8 +121,8 @@ void AppClass::Display(void)
 {
 	//clear the screen
 	ClearScreen();
-
 	//Render the grid based on the camera's mode:
+<<<<<<< HEAD
 	switch (m_pCameraMngr->GetCameraMode())
 	{
 	default: //Perspective
@@ -148,8 +148,11 @@ void AppClass::Display(void)
 		m_pSphere[i].Render(mProjection, mView, m_pMatrix[i]);
 	}
 
+=======
+	m_pMeshMngr->AddGridToRenderListBasedOnCamera(m_pCameraMngr->GetCameraMode());
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581
 	m_pMeshMngr->Render(); //renders the render list
-
+	m_pMeshMngr->ResetRenderList(); //Reset the Render list after render
 	m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
 }
 

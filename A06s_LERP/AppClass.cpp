@@ -86,7 +86,11 @@ void AppClass::Update(void)
 
 	for (int i = 0; i < static_cast<int>(m_lPositions.size()); i++)
 	{
+<<<<<<< HEAD
 		m_pMeshMngr->AddSphereToQueue(glm::translate(m_lPositions[i]) * glm::scale(vector3(0.1f)), RERED, SOLID);
+=======
+		m_pMeshMngr->AddSphereToRenderList(glm::translate(m_lPositions[i]) * glm::scale(vector3(0.1f)), RERED, SOLID);
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581
 	}
 
 	//Adds all loaded instance to the render list
@@ -119,6 +123,7 @@ void AppClass::Display(void)
 {
 	//clear the screen
 	ClearScreen();
+<<<<<<< HEAD
 
 	//Render the grid based on the camera's mode:
 	switch (m_pCameraMngr->GetCameraMode())
@@ -139,6 +144,12 @@ void AppClass::Display(void)
 	
 	m_pMeshMngr->Render(); //renders the render list
 
+=======
+	//Render the grid based on the camera's mode:
+	m_pMeshMngr->AddGridToRenderListBasedOnCamera(m_pCameraMngr->GetCameraMode());
+	m_pMeshMngr->Render(); //renders the render list
+	m_pMeshMngr->ResetRenderList(); //Reset the Render list after render
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581
 	m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
 }
 

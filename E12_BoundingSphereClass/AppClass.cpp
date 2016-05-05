@@ -18,6 +18,7 @@ void AppClass::InitVariables(void)
 	//Load Models
 	m_pMeshMngr->LoadModel("Minecraft\\Steve.obj", "Steve");
 	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper");
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 	//std::vector<vector3> vertexList = m_pMeshMngr->GetVertexList("Steve");
@@ -97,6 +98,8 @@ void AppClass::InitVariables(void)
 	m_pSphere1 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Steve"));
 	m_pSphere2 = new MyBoundingSphereClass(m_pMeshMngr->GetVertexList("Creeper"));
 >>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
+=======
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581
 }
 
 void AppClass::Update(void)
@@ -120,28 +123,6 @@ void AppClass::Update(void)
 	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O1) * ToMatrix4(m_qArcBall), "Steve");
 	m_pMeshMngr->SetModelMatrix(glm::translate(m_v3O2), "Creeper");
 
-	m_pSphere1->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Steve"));
-	m_pSphere2->SetModelMatrix(m_pMeshMngr->GetModelMatrix("Creeper"));
-
-	bool isColliding = m_pSphere1->IsColliding(m_pSphere2);
-
-	if (isColliding)
-	{
-		m_pMeshMngr->AddSphereToQueue(
-			glm::translate(vector3(m_pSphere1->GetCenterG())) *
-			glm::scale(vector3(m_pSphere1->GetRadius()) * 2.0f), RERED, WIRE);
-		m_pMeshMngr->AddSphereToQueue(glm::translate(vector3(m_pSphere2->GetCenterG()))  *
-			glm::scale(vector3(m_pSphere2->GetRadius()) * 2.0f), RERED, WIRE);
-	}
-	else
-	{
-		m_pMeshMngr->AddSphereToQueue(
-			glm::translate(vector3(m_pSphere1->GetCenterG())) *
-			glm::scale(vector3(m_pSphere1->GetRadius()) * 2.0f), REGREEN, WIRE);
-		m_pMeshMngr->AddSphereToQueue(glm::translate(vector3(m_pSphere2->GetCenterG()))  *
-			glm::scale(vector3(m_pSphere2->GetRadius()) * 2.0f), REGREEN, WIRE);
-	}
-	
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
@@ -164,6 +145,7 @@ void AppClass::Update(void)
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
+<<<<<<< HEAD
 <<<<<<< HEAD
 	/*
 	bool bAreColliding = false;
@@ -190,10 +172,13 @@ void AppClass::Update(void)
 =======
 	
 >>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
+=======
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581
 	//print info into the console
 	printf("FPS: %d            \r", nFPS);//print the Frames per Second
 	//Print info on the screen
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REYELLOW);
+<<<<<<< HEAD
 <<<<<<< HEAD
 	/*if (bAreColliding)
 		m_pMeshMngr->PrintLine("They are colliding! >_<", RERED);
@@ -202,6 +187,8 @@ void AppClass::Update(void)
 =======
 
 >>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
+=======
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->Print(std::to_string(nFPS), RERED);
 }
@@ -210,8 +197,8 @@ void AppClass::Display(void)
 {
 	//clear the screen
 	ClearScreen();
-
 	//Render the grid based on the camera's mode:
+<<<<<<< HEAD
 	switch (m_pCameraMngr->GetCameraMode())
 	{
 	default: //Perspective
@@ -248,8 +235,11 @@ void AppClass::Display(void)
 
 =======
 >>>>>>> eb437bb9cc18830401c10408dec5fccc326ac4f7
+=======
+	m_pMeshMngr->AddGridToRenderListBasedOnCamera(m_pCameraMngr->GetCameraMode());
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581
 	m_pMeshMngr->Render(); //renders the render list
-
+	m_pMeshMngr->ResetRenderList(); //Reset the Render list after render
 	m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
 
 	/*
@@ -261,6 +251,7 @@ void AppClass::Display(void)
 
 void AppClass::Release(void)
 {
+<<<<<<< HEAD
 	if (steveBoundSphere != nullptr)
 	{
 		delete steveBoundSphere;
@@ -273,5 +264,7 @@ void AppClass::Release(void)
 		creeperBoundSphere = nullptr;
 
 	}
+=======
+>>>>>>> cbe613801c99970acfc1173d8d00852a60671581
 	super::Release(); //release the memory of the inherited fields
 }
