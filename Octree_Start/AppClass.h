@@ -8,12 +8,14 @@ Date: 2015/09 (Last Modified on: 15/11)
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
 #include "MyOctant.h"
+#include "MyBOManager.h"
 
 using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 
 class AppClass : public ReEngAppClass
 {
 	MyOctant* m_pOctreeHead = nullptr;
+	MyBOManager* m_pBOMngr = nullptr;
 public:
 	typedef ReEngAppClass super;
 

@@ -21,10 +21,18 @@ void AppClass::InitVariables(void)
 		vector3(0.0f, 2.5f, 15.0f),//Camera position
 		vector3(0.0f, 2.5f, 0.0f),//What Im looking at
 		REAXISY);//What is up
-	//Load a model onto the Mesh manager
-	m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", "Creeper");
+	m_pBOMngr = MyBOManager::GetInstance();
 
-	m_pOctreeHead = new MyOctant(10.0f);
+	//Load a model onto the Mesh manager
+	for (uint i = 0; i < 10; i++)
+	{
+		String sName = "Creeper" + std::to_string(i);
+		vector3 v3Position = glm::sphericalRand(10.0f);
+		m_pMeshMngr->LoadModel("Minecraft\\Creeper.obj", sName, false, glm::translate(v3Position + vector3(5.0f,0,0)));
+		m_pBOMngr->AddObject(sName);
+	}
+
+	m_pOctreeHead = new MyOctant();
 	m_pOctreeHead->Subdivide();
 	
 
@@ -51,8 +59,8 @@ void AppClass::Update(void)
 	//Adds all loaded instance to the render list
 	m_pMeshMngr->AddInstanceToRenderList("ALL");
 
-	m_pOctreeHead->Draw();
-	m_pOctreeHead->m_pChildren[0].Draw();
+	m_pOctreeHead->Display();
+	//m_pOctreeHead->m_pChildren[0].Draw();
 
 	//Indicate the FPS
 	int nFPS = m_pSystem->GetFPS();
@@ -81,7 +89,12 @@ void AppClass::Display(void)
 
 void AppClass::Release(void)
 {
-	m_pOctreeHead->DestroyOctant();
-	SafeDelete(m_pOctreeHead);
+	/*m_pOctreeHead->DestroyOctant();
+	SafeDelete(m_pOctreeHead);*/
+	if (m_pOctreeHead != nullptr)
+	{
+		delete m_pOctreeHead;
+		m_pOctreeHead = nullptr;
+	}
 	super::Release(); //release the memory of the inherited fields
 }

@@ -6,18 +6,25 @@ Date: 2015/06
 #define __MyOctant_H_
 
 #include "RE/ReEng.h"
-
+#include "MyBOManager.h"
 
 //System Class
 class MyOctant
 {
-	vector3 m_v3Center; //center of the octant
+	/*vector3 m_v3Center; //center of the octant
 	float m_fSize = 0.0f; //how large the cube is
-	MeshManagerSingleton* m_pMeshMngr = nullptr;
 	MyOctant* m_pParent = nullptr;
+	uint m_uChildren = 0;*/
+	
+	vector3 m_v3Position;
+	float m_fSize = 0.0f;
+	MeshManagerSingleton* m_pMeshMngr = nullptr;
+	int m_nChildCount = 0;
+	MyBOManager* m_pBOMngr = nullptr;
 	
 public:
 
+	static bool m_bHead;
 	MyOctant* m_pChildren = nullptr;
 
 	MyOctant(float a_fSize);
@@ -59,9 +66,9 @@ public:
 	*/
 	void Swap(MyOctant& other);
 
-	void Draw(void);
+	void Display(void);
 	void Subdivide(void);
-	void DestroyOctant(void);
+	void ReleaseChildren(void);
 private:
 	/*
 	Method: Release
