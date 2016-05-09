@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
+<<<<<<< HEAD
 VisualStudioVersion = 14.0.24720.0
+=======
+VisualStudioVersion = 14.0.23107.0
+>>>>>>> ea39b28ce271ac1cbbbf01c7316ea82df098929f
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelViewer", "ModelViewer\ModelViewer_VS15.vcxproj", "{FB51C0AB-6E10-4DEB-9D27-A3C31251A36D}"
 EndProject
@@ -77,13 +81,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A11_SAT", "A11_SAT\A11_SAT.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A10s_BoundingObjectSingleton_DEMO", "A10s_BoundingObjectSingleton\A10s_BoundingObjectSingleton.vcxproj", "{13FA2754-46C1-49D8-B9A4-1DC856801931}"
 EndProject
+<<<<<<< HEAD
+=======
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A05s_Transformations_DEMO", "A05s_Transformations\A05s_Transformations.vcxproj", "{731BEF6C-42D8-41D5-9C26-FCC908241B92}"
+EndProject
+>>>>>>> ea39b28ce271ac1cbbbf01c7316ea82df098929f
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ex01s_A_DEMO", "T01-As\T01-As.vcxproj", "{AA18B089-83AC-4904-8600-CD68E61EDC26}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08_Audio", "08_Audio\08_Audio.vcxproj", "{D50EA787-1AD4-44AC-A230-3304FFB04F82}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E15_MyEntityManager", "E15_MyEntityManager\E15_MyEntityManager.vcxproj", "{0C037D84-CF9B-4149-AAAB-8317346179DF}"
 EndProject
+<<<<<<< HEAD
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "E17_BulletICE", "E17_BulletICE\E17_BulletICE_VS15.vcxproj", "{4EE5ABDF-2C3A-443D-957D-1C7F9C0F032E}"
+=======
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OctreeStart", "OctreeStart\OctreeStart.vcxproj", "{C39927BA-EB62-467C-96FA-6DE4B323CE92}"
+>>>>>>> ea39b28ce271ac1cbbbf01c7316ea82df098929f
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -339,12 +352,19 @@ Global
 		{0C037D84-CF9B-4149-AAAB-8317346179DF}.Release|x64.ActiveCfg = Release|Win32
 		{0C037D84-CF9B-4149-AAAB-8317346179DF}.Release|x86.ActiveCfg = Release|Win32
 		{0C037D84-CF9B-4149-AAAB-8317346179DF}.Release|x86.Build.0 = Release|Win32
+<<<<<<< HEAD
 		{4EE5ABDF-2C3A-443D-957D-1C7F9C0F032E}.Debug|x64.ActiveCfg = Debug|Win32
 		{4EE5ABDF-2C3A-443D-957D-1C7F9C0F032E}.Debug|x86.ActiveCfg = Debug|Win32
 		{4EE5ABDF-2C3A-443D-957D-1C7F9C0F032E}.Debug|x86.Build.0 = Debug|Win32
 		{4EE5ABDF-2C3A-443D-957D-1C7F9C0F032E}.Release|x64.ActiveCfg = Release|Win32
 		{4EE5ABDF-2C3A-443D-957D-1C7F9C0F032E}.Release|x86.ActiveCfg = Release|Win32
 		{4EE5ABDF-2C3A-443D-957D-1C7F9C0F032E}.Release|x86.Build.0 = Release|Win32
+=======
+		{C39927BA-EB62-467C-96FA-6DE4B323CE92}.Debug|x86.ActiveCfg = Debug|Win32
+		{C39927BA-EB62-467C-96FA-6DE4B323CE92}.Debug|x86.Build.0 = Debug|Win32
+		{C39927BA-EB62-467C-96FA-6DE4B323CE92}.Release|x86.ActiveCfg = Release|Win32
+		{C39927BA-EB62-467C-96FA-6DE4B323CE92}.Release|x86.Build.0 = Release|Win32
+>>>>>>> ea39b28ce271ac1cbbbf01c7316ea82df098929f
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
